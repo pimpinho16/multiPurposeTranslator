@@ -1,8 +1,11 @@
 package process
 
 import (
+	"errors"
 	"multiPurposeTranslator/methods"
 )
+
+
 
 
 type Service interface{
@@ -19,9 +22,18 @@ func NewTranslatorService(Operations methods.Operations) *ProcessService{
 
 func (s *ProcessService) TranslateMethod(text string, origin string, destination string) (string,error){
  	var result string
+ 	var err error = nil
+
+
 	if (destination =="BINARY"){
 		result  =  s.Operations.ConvertToBinary(text,origin)
- 	}
- 	return result,nil
+ 	}else if (destination == "TEXT"){
+ 		result = s.Operations.ConvertToText(text,origin)
+	}else if (destination == "MORSE"){
+		result = s.Operations.ConvertToMorse(text,origin)
+	}else {
+		err = errors.New("Format not recognized")
+	}
+ 	return result,err
 }
 

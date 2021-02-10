@@ -15,9 +15,16 @@ func main (){
 	service = process.NewTranslatorService(Operation)
 
 	result,err := service.TranslateMethod(".-","MORSE","BINARY")
+
+
 	if err != nil {
-		fmt.Println("Error trying convert text","hola")
+		fmt.Println("Error trying convert text",".-")
 	}
 	fmt.Println(result)
 
+	result,err = service.TranslateMethod("CC","TEXT","MORSE")
+	if err != nil {
+		fmt.Println("Error trying convert text","CC")
+	}
+	fmt.Println(result)
 }

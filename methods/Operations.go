@@ -32,14 +32,10 @@ func (op *Operations)ConvertToBinary(text string,origin string) (string){
 
 func (op *Operations)ConvertToText(text string,origin string) (string){
 	var result string
+
 	if (origin == "MORSE") {
-		text =  morse.ToText(text)
+		result =  morse.ToText(text)
 	}
-	var buffer bytes.Buffer
-	for _, runeValue := range text {
-		fmt.Fprintf(&buffer, "%b", runeValue)
-	}
-	return fmt.Sprintf("%s", buffer.Bytes())
 	return result
 
 }
@@ -47,14 +43,9 @@ func (op *Operations)ConvertToText(text string,origin string) (string){
 
 func (op *Operations)ConvertToMorse(text string,origin string) (string){
 	var result string
-	if (origin == "MORSE") {
-		text =  morse.ToText(text)
+	if (origin == "TEXT") {
+		result =  morse.ToMorse(text)
 	}
-	var buffer bytes.Buffer
-	for _, runeValue := range text {
-		fmt.Fprintf(&buffer, "%b", runeValue)
-	}
-	return fmt.Sprintf("%s", buffer.Bytes())
 	return result
 
 }
