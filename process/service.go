@@ -1,39 +1,25 @@
 package process
 
 import (
-	"errors"
-	"multiPurposeTranslator/methods"
+	_interface "multiPurposeTranslator/interface"
 )
 
-
-
-
-type Service interface{
-	TranslateMethod(text string, origin string, destination string) (string,error)
+type Service interface {
+	TranslateMethod(text string, origin string, destination string) _interface.Operation
 }
 
-type ProcessService struct{
-	Operations methods.Operations
+type ProcessService struct {
+	BinaryFactory _interface.Operation
 }
 
-func NewTranslatorService(Operations methods.Operations) *ProcessService{
-	return &ProcessService{Operations: Operations}
+func NewTranslatorService(BinaryFactory _interface.Operation) *ProcessService {
+	return &ProcessService{BinaryFactory: BinaryFactory}
 }
 
-func (s *ProcessService) TranslateMethod(text string, origin string, destination string) (string,error){
- 	var result string
- 	var err error = nil
+func (s *ProcessService) TranslateMethod(text string, origin string, destination string) _interface.Operation {
 
-
-	if (destination =="BINARY"){
-		result  =  s.Operations.ConvertToBinary(text,origin)
- 	}else if (destination == "TEXT"){
- 		result = s.Operations.ConvertToText(text,origin)
-	}else if (destination == "MORSE"){
-		result = s.Operations.ConvertToMorse(text,origin)
-	}else {
-		err = errors.New("Format not recognized")
+	if destination == "BINARY" {
+		return s.BinaryFactory.Traslator(text, origin)
 	}
- 	return result,err
-}
 
+}
